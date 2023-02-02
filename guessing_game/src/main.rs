@@ -17,11 +17,21 @@ fn main() {
 
         let mut guess = String::new();
 
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line!");
+        match io::stdin().read_line(&mut guess) {
+            Ok(r) => r,
+            Err(_) => {
+                println!("Invalid input!");
+                continue;
+            }
+        };
 
-        let guess: u32 = guess.trim().parse().expect("Plese type a number");
+        let guess: u32 = match guess.trim().parse() {
+            Ok(n) => n,
+            Err(_) => {
+                println!("Input must be a number");
+                continue;
+            }
+        };
 
         match guess.cmp(&secret_number) {
             Ordering::Less => print!("{guess} is LESS than the secret"),
