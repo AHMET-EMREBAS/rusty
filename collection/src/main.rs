@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     let mut v: Vec<i32> = Vec::new();
     add(2, &mut v);
@@ -22,6 +24,21 @@ fn main() {
     println!("Unsorted: {:?}", v1);
     v1.sort();
     println!("Sorted: {:?}", v1);
+
+    println!("------------------------------------------");
+
+    let mut scores = HashMap::new();
+
+    scores.insert("blue", "10");
+    scores.insert("red", "100");
+
+    // Insert if not exist
+    scores.entry("blue").or_insert("500");
+    scores.entry("cyan").or_insert("500");
+
+    println!("{:?}", scores);
+
+    println!("Blue value is {}", scores.get("blue").copied().unwrap());
 }
 
 fn add(value: i32, v: &mut Vec<i32>) {
